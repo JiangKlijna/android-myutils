@@ -3,7 +3,8 @@ package com.jiangKlijna.object;
 import java.lang.reflect.Field;
 
 /**
- * Created by ilioili on 2015/6/30.
+ * object Util
+ * Author: jiangKlijna
  */
 public class ObjUtil {
 
