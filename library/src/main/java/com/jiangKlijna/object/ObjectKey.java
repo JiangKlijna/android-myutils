@@ -2,6 +2,9 @@ package com.jiangKlijna.object;
 
 import android.os.Environment;
 
+import com.jiangKlijna.io.FileUtil;
+import com.jiangKlijna.log.L;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,11 +27,16 @@ public class ObjectKey<T> implements Serializable {
         ObjectKey<File> fileKey = key2.popObj();
         File f = fileKey.popObj();
         if (f == Environment.getDataDirectory()) {
-            System.out.print(1);
+            L.i("true");
+            L.saveToLog(new RuntimeException("1"));
         } else {
-            System.out.print(2);
+            L.i("false");
+            L.saveToLog(new RuntimeException("a"));
         }
-        fileKey.destory();
+        L.saveToLog(key2.getThisFile().getAbsolutePath());
+//        fileKey.destory();
+//        key1.destory();
+//        key2.destory();
     }
 
     public static <ST> ObjectKey<ST> saveObj_map(final ST obj) {
@@ -75,7 +83,7 @@ public class ObjectKey<T> implements Serializable {
     private File getThisFile() {
         if (thisFile == null) {
             try {
-                thisFile = new File(Environment.getExternalStorageDirectory(), hashCode() + ".sa");
+                thisFile = new File(FileUtil.SDCARD_APP_DIR, hashcode + ".sa");
                 if (!thisFile.exists()) {
                     thisFile.createNewFile();
                 }

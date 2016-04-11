@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.jiangKlijna.object.ObjectKey;
+
 /**
  * Created by jiangKlijna on 16-4-11.
  */
@@ -16,6 +18,7 @@ public class ActMain extends Activity {
         tv.setText("jiangKlijna");
         tv.setTextSize(50);
         setContentView(tv);
+        ObjectKey.test();
     }
 
 }

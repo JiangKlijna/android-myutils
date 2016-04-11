@@ -109,6 +109,7 @@ public class L {
             buffer.append("\n\n");
             buffer.append(getHms());
             buffer.append(":\n");
+            buffer.append(ex.toString());
             for (StackTraceElement element : ex.getStackTrace()) {
                 buffer.append("\tat ");
                 buffer.append(element.toString());
