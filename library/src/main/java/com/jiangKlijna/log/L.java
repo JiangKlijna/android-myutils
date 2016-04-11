@@ -1,12 +1,13 @@
 package com.jiangKlijna.log;
 
-import android.os.Environment;
 import android.util.Log;
 
+import com.jiangKlijna.io.FileUtil;
+import com.jiangKlijna.io.IO;
+
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -15,6 +16,12 @@ import java.util.Calendar;
  * Author: jiangKlijna
  */
 public class L {
+    private static final SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat hms = new SimpleDateFormat("hh:mm:ss");
+
+    private L() {
+    }
+
     public static final String TAG = L.class.getName();
 
     public static void e(String str) {
@@ -51,68 +58,66 @@ public class L {
         Log.w(tag, str);
     }
 
-    public static void saveToLog(String str) {
-        File dir = new File(Environment.getExternalStorageDirectory(), "haoma");
-        saveToLog(dir, str);
+    public static void d(String str) {
+        d(TAG, str);
+    }
+
+    public static void d(String tag, String str) {
+        Log.d(tag, str);
+    }
+
+    public static void v(String str) {
+        v(TAG, str);
+    }
+
+    public static void v(String tag, String str) {
+        Log.v(tag, str);
+    }
+
+    public static String getYmd() {
+        return ymd.format(Calendar.getInstance().getTime());
+    }
+
+    public static String getHms() {
+        return hms.format(Calendar.getInstance().getTime());
     }
 
     public static void saveToLog(Throwable e) {
+        saveToLog(new File(FileUtil.SDCARD_APP_DIR, getYmd() + ".log"), e);
+    }
+
+    public static void saveToLog(CharSequence str) {
+        saveToLog(new File(FileUtil.SDCARD_APP_DIR, getYmd() + ".log"), str);
+    }
+
+    public static void saveToLog(File logFile, CharSequence str) {
         try {
-            File dir = new File(Environment.getExternalStorageDirectory(), "haoma");
-            dir.mkdirs();
-            File logFile = new File(dir, new SimpleDateFormat("MM-dd").format(Calendar.getInstance().getTime()) + ".com.jiangKlijna.log");
-            FileOutputStream fos = new FileOutputStream(logFile, true);
-            PrintWriter errWrite = new PrintWriter(fos);
-            errWrite.print(new SimpleDateFormat("hh:mm:ss").format(Calendar.getInstance().getTime()));
-            errWrite.print("\n\n" + e);
-            StackTraceElement[] stack = e.getStackTrace();
-            if (stack != null) {
-                for (StackTraceElement stackTraceElement : stack) {
-                    errWrite.append("\tat ");
-                    errWrite.append(stackTraceElement.toString());
-                    errWrite.append("\n");
-                }
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("\n\n");
+            buffer.append(getHms());
+            buffer.append("\t:\n");
+            buffer.append(str);
+            IO.io(buffer.toString(), new FileWriter(logFile, true));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void saveToLog(File logFile, Throwable ex) {
+        try {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("\n\n");
+            buffer.append(getHms());
+            buffer.append(":\n");
+            for (StackTraceElement element : ex.getStackTrace()) {
+                buffer.append("\tat ");
+                buffer.append(element.toString());
+                buffer.append("\n");
             }
-            Throwable cause = e.getCause();
-            if (cause != null) {
-                errWrite.append("Caused by: " + cause.toString());
-            }
-            errWrite.flush();
-            errWrite.close();
-        } catch (FileNotFoundException e1) {
+            buffer.append("Caused by: " + ex.getCause());
+            IO.io(buffer.toString(), new FileWriter(logFile, true));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public static void saveToLog(File dir, CharSequence str) {
-        try {
-            dir.mkdirs();
-            File logFile = new File(dir, new SimpleDateFormat("MM-dd").format(Calendar.getInstance().getTime()) + ".com.jiangKlijna.log");
-            FileOutputStream fos = new FileOutputStream(logFile, true);
-            PrintWriter printWriter = new PrintWriter(fos);
-            printWriter.print(new SimpleDateFormat("hh:mm:ss").format(Calendar.getInstance().getTime()));
-            printWriter.print('\n');
-            printWriter.print(str);
-            printWriter.flush();
-            printWriter.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void saveToLog(String str, File logFile) {
-        try {
-            File dir = logFile.getParentFile();
-            dir.mkdirs();
-            FileOutputStream fos = new FileOutputStream(logFile, true);
-            PrintWriter printWriter = new PrintWriter(fos);
-            printWriter.print(str);
-            printWriter.print('\n');
-            printWriter.flush();
-            printWriter.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

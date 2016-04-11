@@ -10,6 +10,8 @@ import java.io.File;
  * Author: jiangKlijna
  */
 public class FileUtil {
+    public static final File SDCARD_APP_DIR = getSdcardFileDir("jiangKlijna");
+
     private FileUtil() {
     }
 
