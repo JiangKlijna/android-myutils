@@ -4,7 +4,8 @@
 - android kit,utils...
 - android开发的工具
 - 推荐使用导入源码的方式的使用(只有java文件)
-[点击下载源码](https://raw.githubusercontent.com/JiangKlijna/JUtil/master/library.tar.gz)
+- [点击下载源码](https://raw.githubusercontent.com/JiangKlijna/JUtil/master/library.tar.gz)
+
 #### # 内容说明
 
 包名|工具|描述
@@ -33,7 +34,7 @@ com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存
 通过getHolder获得ViewHolder的实例
 分别传入一个继承自View的类对象(反射),或者布局资源(inflate)得到convertView
 ```java
-        adapter = new XAdapter<String>(this) {
+        adapter = new XAdapter<String>(getContext()) {
             @Override
             protected View initData(int position, View convertView, ViewGroup parent) {
                 XAdapter.ViewHolder holder = XAdapter.getHolder(getContext(), convertView, TextView.class, position);

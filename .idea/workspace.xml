@@ -5,27 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f0eea6c4-c9e8-4412-be6f-dc586cc784ce" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/view/AvatarView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/library/src/main/res/values/strings.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/appcompat_v7_23_3_0.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/support_v4_23_3_0.xml" afterPath="$PROJECT_DIR$/.idea/libraries/support_v4_23_3_0.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/JUtil/ActMain.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/JUtil/ActMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/library/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/application/IntentUtil.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/application/IntentUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/io/IO.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/io/IO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/log/L.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/log/L.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/math/MathUtil.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/math/MathUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/object/ObjectKey.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/object/ObjectKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/view/ImgUtil.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/view/ImgUtil.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/view/ToastUtil.java" afterPath="$PROJECT_DIR$/library/src/main/java/com/jiangKlijna/view/ToastUtil.java" />
     </list>
     <ignored path="JUtil.iws" />
     <ignored path=".idea/workspace.xml" />
