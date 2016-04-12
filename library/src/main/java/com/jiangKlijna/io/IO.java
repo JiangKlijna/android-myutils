@@ -36,7 +36,6 @@ public class IO {
         io(new FileInputStream(fsrc), new FileOutputStream(descf));
     }
 
-
     public static String io(Reader reader) throws IOException {
         StringWriter stringWriter = new StringWriter();
         io(reader, stringWriter);
@@ -57,15 +56,14 @@ public class IO {
         io(new StringReader(string), writer);
     }
 
-
     //字节流
     public static void io(final InputStream is, final OutputStream os) throws IOException {
         BufferedInputStream bis = new BufferedInputStream(is);
         BufferedOutputStream bos = new BufferedOutputStream(os);
         byte[] buf = new byte[2048];
-        int len = -1;
+        int len;
         while ((len = bis.read(buf)) != -1) {
-            bos.write(buf);
+            bos.write(buf, 0, len);
             bos.flush();
         }
         bis.close();
@@ -83,9 +81,10 @@ public class IO {
     public static void io(final Reader is, final Writer os) throws IOException {
         BufferedReader bufr = new BufferedReader(is);
         BufferedWriter bufw = new BufferedWriter(os);
-        String line = null;
+        String line;
         while ((line = bufr.readLine()) != null) {
             bufw.write(line);
+            bufw.newLine();
             bufw.flush();
         }
         bufr.close();

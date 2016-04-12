@@ -23,89 +23,25 @@ public class MathUtil {
     }
 
     //返回科学计算后的乘法结果
-    public static double multiply(double val1, double val2, int mc, double... more) {
+    public static double multiply(double val1, double val2) {
         if (val1 == 0 || val2 == 0) return 0;
-        BigDecimal bg1 = new BigDecimal(val1);
-        BigDecimal bg2 = new BigDecimal(val2);
-        BigDecimal result = new BigDecimal(0);
-
-        if (more.length > 0) {
-            for (int i = 0, len = more.length; i < len; i++) {
-                if (i < len - 1) {
-                    result = result.multiply(new BigDecimal(more[i]));
-                } else {
-                    result = result.multiply(new BigDecimal(more[i]), new MathContext(mc, RoundingMode.HALF_UP));
-                }
-            }
-        } else {
-            result = bg1.multiply(bg2, new MathContext(mc, RoundingMode.HALF_UP));
-        }
-
-        return result.doubleValue();
+        return new BigDecimal(val1).multiply(new BigDecimal(val2)).doubleValue();
     }
 
     //返回科学计算后的除法结果
-    public static double divide(double fz, double fm, int mc, double... more) {
+    public static double divide(double fz, double fm) {
         if (fz == 0 || fm == 0) return 0;
-        BigDecimal bg1 = new BigDecimal(fz);
-        BigDecimal bg2 = new BigDecimal(fm);
-        BigDecimal result = new BigDecimal(0);
-
-        if (more.length > 0) {
-            for (int i = 0, len = more.length; i < len; i++) {
-                if (i < len - 1) {
-                    result = result.divide(new BigDecimal(more[i]));
-                } else {
-                    result = result.divide(new BigDecimal(more[i]), new MathContext(mc, RoundingMode.HALF_UP));
-                }
-            }
-        } else {
-            result = bg1.divide(bg2, new MathContext(mc, RoundingMode.HALF_UP));
-        }
-
-        return result.doubleValue();
+        return new BigDecimal(fz).divide(new BigDecimal(fm)).doubleValue();
     }
 
     //返回科学计算后的减法结果
-    public static double subtract(double val1, double val2, int mc, double... more) {
+    public static double subtract(double val1, double val2) {
         if (val2 == 0) return val1;
-        BigDecimal bg1 = new BigDecimal(val1);
-        BigDecimal bg2 = new BigDecimal(val2);
-        BigDecimal result = new BigDecimal(0);
-
-        if (more.length > 0) {
-            for (int i = 0, len = more.length; i < len; i++) {
-                if (i < len - 1) {
-                    result = result.subtract(new BigDecimal(more[i]));
-                } else {
-                    result = result.subtract(new BigDecimal(more[i]), new MathContext(mc, RoundingMode.HALF_UP));
-                }
-            }
-        } else {
-            result = bg1.subtract(bg2, new MathContext(mc, RoundingMode.HALF_UP));
-        }
-
-        return result.doubleValue();
+        return new BigDecimal(val1).subtract(new BigDecimal(val2)).doubleValue();
     }
 
     //返回科学计算后的加法结果
-    public static double add(double val1, double val2, int mc, double... more) {
-        BigDecimal bg1 = new BigDecimal(val1);
-        BigDecimal bg2 = new BigDecimal(val2);
-        BigDecimal result = new BigDecimal(0);
-
-        if (more.length > 0) {
-            for (int i = 0, len = more.length; i < len; i++) {
-                if (i < len - 1) {
-                    result = result.add(new BigDecimal(more[i]));
-                } else {
-                    result = result.add(new BigDecimal(more[i]), new MathContext(mc, RoundingMode.HALF_UP));
-                }
-            }
-        } else {
-            result = bg1.add(bg2, new MathContext(mc, RoundingMode.HALF_UP));
-        }
-
-        return result.doubleValue();
+    public static double add(double val1, double val2) {
+        return new BigDecimal(val1).add(new BigDecimal(val2)).doubleValue();
     }
 }

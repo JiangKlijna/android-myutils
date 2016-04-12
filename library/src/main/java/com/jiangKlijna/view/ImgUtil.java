@@ -29,6 +29,23 @@ public class ImgUtil {
     private ImgUtil() {
     }
 
+    /**
+     * dp to px
+     */
+    public static int dp_px(Context context, float dpValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
+    }
+
+    /**
+     * px to dp
+     */
+    public static int px_dp(Context context, float pxValue) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxValue / scale + 0.5f);
+    }
+
+
     //bitmap  to  uri
     public static Uri Bitmap2Uri(Context con, Bitmap bitmap) {
         return Uri.parse(MediaStore.Images.Media.insertImage(con.getContentResolver(), bitmap, null, null));
@@ -200,52 +217,4 @@ public class ImgUtil {
             return null;
         }
     }
-
-    public static Bitmap captureView(View view, int width, int height) {
-        Bitmap bm = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        view.draw(new Canvas(bm));
-        return bm;
-    }
-
-    // 获取指定Activity的截屏，保存到png文件
-    public static File takeScreenShot(View view) {
-        // View是你需要截图的View
-//        view.setDrawingCacheEnabled(true);
-//        view.buildDrawingCache();
-        Bitmap bitmap = null;
-        try {
-            bitmap = captureView(view, view.getWidth(), view.getHeight());
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-        File f = getNewImgFile();
-        String fname = f.getAbsolutePath();
-        if (bitmap != null) {
-            try {
-                FileOutputStream out = new FileOutputStream(fname);
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        view.destroyDrawingCache();
-        return f;
-    }
-
-    /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
-     */
-    public static int dp_px(Context context, float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
-     */
-    public static int px_dp(Context context, float pxValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
 }

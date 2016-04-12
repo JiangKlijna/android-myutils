@@ -1,9 +1,6 @@
 package com.jiangKlijna.object;
 
-import android.os.Environment;
-
 import com.jiangKlijna.io.FileUtil;
-import com.jiangKlijna.log.L;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,42 +18,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ObjectKey<T> implements Serializable {
     private static final transient ConcurrentHashMap<Integer, Object> OBJECT_MAP = new ConcurrentHashMap<Integer, Object>();
 
-    public static final void test() {
-        ObjectKey<File> key1 = saveObj_map(Environment.getDataDirectory());
-        ObjectKey<ObjectKey> key2 = saveObj_file(key1);
-        ObjectKey<File> fileKey = key2.popObj();
-        File f = fileKey.popObj();
-        if (f == Environment.getDataDirectory()) {
-            L.i("true");
-            L.saveToLog(new RuntimeException("1"));
-        } else {
-            L.i("false");
-            L.saveToLog(new RuntimeException("a"));
-        }
-        L.saveToLog(key2.getThisFile().getAbsolutePath());
-//        fileKey.destory();
-//        key1.destory();
-//        key2.destory();
-    }
-
+    //通过此方法获得ObjectKey的对象
     public static <ST> ObjectKey<ST> saveObj_map(final ST obj) {
         ObjectKey key = new ObjectKey(obj.getClass());
-        OBJECT_MAP.put(key.hashcode, obj);
+        key.updateObj(obj);
         return key;
     }
-
+    //通过此方法获得ObjectKey的对象
     public static <ST> ObjectKey<ST> saveObj_file(final Serializable obj) {
         ObjectKey key = new ObjectKey(obj.getClass(), true);
-        try {
-            File file = key.getThisFile();
-            FileOutputStream fos = new FileOutputStream(file);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(obj);
-            oos.close();
-            fos.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        key.updateObj(obj);
         return key;
     }
 
@@ -123,6 +94,28 @@ public class ObjectKey<T> implements Serializable {
         T obj = getObj();
         destory();
         return obj;
+    }
+
+    //更新这个key所指向的对象
+    public void updateObj(final T obj) {
+        if (!isFile) {
+            OBJECT_MAP.put(hashcode, obj);
+        }
+    }
+
+    //更新这个key所指向的对象
+    public void updateObj(final Serializable obj) {
+        if (isFile) {
+            try {
+                FileOutputStream fos = new FileOutputStream(getThisFile());
+                ObjectOutputStream oos = new ObjectOutputStream(fos);
+                oos.writeObject(obj);
+                oos.close();
+                fos.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**

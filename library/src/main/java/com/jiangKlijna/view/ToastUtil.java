@@ -3,7 +3,6 @@ package com.jiangKlijna.view;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
-import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,16 +17,6 @@ public class ToastUtil {
 
     public static void init(Context c) {
         context = c.getApplicationContext();
-    }
-
-    public static Toast getToast(View view) {
-        Toast toast = new Toast(view.getContext());
-        toast.setView(view);
-        return toast;
-    }
-
-    public static void setToast(View view) {
-        toast.setView(view);
     }
 
     public static void showToast(Context context, Object obj, int time) {

@@ -8,8 +8,6 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 
-import com.jiangKlijna.math.Blowfish;
-
 import java.io.File;
 import java.util.HashMap;
 

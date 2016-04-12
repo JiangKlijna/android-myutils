@@ -82,6 +82,10 @@ public class L {
         return hms.format(Calendar.getInstance().getTime());
     }
 
+    public static String getYmdHms() {
+        return getYmd() + " " + getHms();
+    }
+
     public static void saveToLog(Throwable e) {
         saveToLog(new File(FileUtil.SDCARD_APP_DIR, getYmd() + ".log"), e);
     }
@@ -93,10 +97,7 @@ public class L {
     public static void saveToLog(File logFile, CharSequence str) {
         try {
             StringBuffer buffer = new StringBuffer();
-            buffer.append("\n\n");
-            buffer.append(getHms());
-            buffer.append("\t:\n");
-            buffer.append(str);
+            buffer.append('\n').append(getHms()).append("\t:\n").append(str);
             IO.io(buffer.toString(), new FileWriter(logFile, true));
         } catch (IOException e) {
             e.printStackTrace();
@@ -106,14 +107,9 @@ public class L {
     public static void saveToLog(File logFile, Throwable ex) {
         try {
             StringBuffer buffer = new StringBuffer();
-            buffer.append("\n\n");
-            buffer.append(getHms());
-            buffer.append(":\n");
-            buffer.append(ex.toString());
+            buffer.append('\n').append(getHms()).append(":\n").append(ex.toString());
             for (StackTraceElement element : ex.getStackTrace()) {
-                buffer.append("\tat ");
-                buffer.append(element.toString());
-                buffer.append("\n");
+                buffer.append("\tat ").append(element.toString()).append("\n");
             }
             buffer.append("Caused by: " + ex.getCause());
             IO.io(buffer.toString(), new FileWriter(logFile, true));
