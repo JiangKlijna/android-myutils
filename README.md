@@ -31,7 +31,7 @@ com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存
 
 #### #示例
  - XAdapter 示例
-通过getHolder获得ViewHolder的实例
+> 通过getHolder获得ViewHolder的实例
 分别传入一个继承自View的类对象(反射),或者布局资源(inflate)得到convertView
 ```java
         adapter = new XAdapter<String>(getContext()) {
@@ -46,7 +46,7 @@ com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存
         };
 ```
 - ObjectKey 示例
-    通过方法saveObj_map(保存到map),saveObj_File(保存到文件)得到一个ObjectKey实例,可以通过此实例重新拿到缓存的对象,ObjectKey为Serializable类型,可以通过Intent传递
+> 通过方法saveObj_map(保存到map),saveObj_File(保存到文件)得到一个ObjectKey实例,可以通过此实例重新拿到缓存的对象,ObjectKey为Serializable类型,可以通过Intent传递
 ```java
         ObjectKey<File> key1 = ObjectKey.saveObj_file(Environment.getDataDirectory());
         key1.getObj();//重新获得对象
@@ -59,6 +59,3 @@ com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存
         key1.destory();//销毁缓存中的对象
         key1.updateObj(Environment.getDownloadCacheDirectory());//更新此key所缓存的对象
 ```
-
-
-  [1]: https://raw.githubusercontent.com/JiangKlijna/JUtil/master/library.tar.gz
