@@ -2,7 +2,6 @@ package com.JUtil;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -10,9 +9,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jiangKlijna.adapter.XAdapter;
-import com.jiangKlijna.object.ObjectKey;
-
-import java.io.File;
 
 /**
  * Created by jiangKlijna on 16-4-11.
@@ -49,15 +45,5 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        ObjectKey<File> key1 = ObjectKey.saveObj_file(Environment.getDataDirectory());
-        key1.getObj();//重新获得对象
-        key1.popObj();//获得对象后删除缓存
-        try {
-            key1.prototype();//以缓存中的对象为原型进行拷贝对象
-        } catch (Exception e) {
-        }
-        key1.isDestory();//缓存中的对象是否被销毁
-        key1.destory();//销毁缓存中的对象
-        key1.updateObj(Environment.getDownloadCacheDirectory());//更新此key所缓存的对象
     }
 }
