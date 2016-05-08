@@ -1,6 +1,5 @@
 package com.jiangKlijna.io;
 
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -34,6 +33,14 @@ public class IO {
 
     public static void copyFile_byte(final File fsrc, final File descf) throws IOException {
         io(new FileInputStream(fsrc), new FileOutputStream(descf));
+    }
+
+    public static void copyFile_char(final String src, final File descf) throws IOException {
+        io(src, new FileWriter(descf));
+    }
+
+    public static void copyFile_byte(final String src, final File descf) throws IOException {
+        io(src, new FileOutputStream(descf));
     }
 
     public static String io(Reader reader) throws IOException {

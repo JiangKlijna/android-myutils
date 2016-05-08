@@ -4,8 +4,12 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -27,6 +31,30 @@ public class AppUtil {
             }
         }
         return false;
+    }
+
+    public static String getMid(Context context) {
+        String imei = "", AndroidID = "", serialNo = "";
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            imei = tm.getDeviceId();
+            AndroidID = android.provider.Settings.System.getString(context.getContentResolver(), "android_id");
+            serialNo = getDeviceSerialForMid2();
+        } catch (Exception e) {
+        }
+//        String m2 = getMD5Str(imei + AndroidID + serialNo);
+        return imei + AndroidID + serialNo;
+    }
+
+    private static String getDeviceSerialForMid2() {
+        String serial = "";
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class);
+            serial = (String) get.invoke(c, "ro.serialno");
+        } catch (Exception ignored) {
+        }
+        return serial;
     }
 
     //版本名
@@ -76,5 +104,23 @@ public class AppUtil {
             e.printStackTrace();
         }
         return status;
+    }
+
+    /**
+     * 是否连接网络
+     */
+    public static boolean isConnNet(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isAvailable();
+    }
+
+    /**
+     * 是否连接Wifi
+     */
+    public static boolean isConnWifi(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetworkInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        return wifiNetworkInfo != null && wifiNetworkInfo.isConnected();
     }
 }

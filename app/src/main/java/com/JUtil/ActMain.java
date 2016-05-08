@@ -1,6 +1,7 @@
 package com.JUtil;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jiangKlijna.adapter.XAdapter;
+import com.jiangKlijna.log.CrashHandler;
 
 /**
  * Created by jiangKlijna on 16-4-11.
@@ -17,7 +19,7 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
 
     private ListView lv;
     private XAdapter<String> adapter;
-    private static final String[] title = new String[]{"XAdapter", "ObjectKey"};
+    private static final String[] title = new String[]{"XAdapter", "ObjectKey", "CrashHandler"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
     }
 
     private void init() {
+        CrashHandler.Init(getApplicationContext());
         adapter = new XAdapter<String>(this) {
             @Override
             protected View initData(int position, View convertView, ViewGroup parent) {
@@ -45,5 +48,8 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        if (l == 2) {
+            startActivity(new Intent(this, System.class));
+        }
     }
 }

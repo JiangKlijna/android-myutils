@@ -18,10 +18,10 @@ com.jiangKlijna.async|CallBack|继承自Handler的回调
 com.jiangKlijna.io|IO|IO工具类
 ......|FileUtil|android下重要目录获取
 com.jiangKlijna.log|L|日志的打印/保存到文件
+......|CrashHandler|android捕获全局异常
 com.jiangKlijna.math|MathUtil|math工具类
 ......|Blowfish|加密算法
 ......|Random|随机数
-com.jiangKlijna.net|NetUtil|net工具类
 com.jiangKlijna.object|ObjectKey|对象的缓存,可以对一个Object缓存到map,或者对Serializable缓存到文件
 ......|NullUtil|判断Null工具类
 ......|ObjUtil|Object工具类,目前有拷贝对象,复制对象

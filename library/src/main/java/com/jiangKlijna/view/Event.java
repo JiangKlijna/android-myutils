@@ -3,6 +3,8 @@ package com.jiangKlijna.view;
 import android.os.SystemClock;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 import java.io.Serializable;
 import java.util.LinkedHashSet;
@@ -66,6 +68,63 @@ public class Event {
 
         protected void onUp(View view) {
         }
+    }
+
+    public static class OnScrollListener implements AbsListView.OnScrollListener, Serializable {
+
+        @Override
+        public final void onScrollStateChanged(AbsListView view, int scrollState) {
+            switch (scrollState) {
+                case OnScrollListener.SCROLL_STATE_IDLE:
+                    onStop(view);
+                    break;
+                case OnScrollListener.SCROLL_STATE_FLING:
+                    onFling(view);
+                    break;
+                case OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                    onStart(view);
+                    break;
+            }
+        }
+
+        //停止触摸后还在滚动
+        public void onFling(AbsListView view) {
+        }
+
+        //停止滚动
+        public void onStop(AbsListView view) {
+        }
+
+        //开始滚动
+        public void onStart(AbsListView view) {
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        }
+    }
+
+    /**
+     * listview使用的OnTouchListener
+     */
+    public static abstract class OnListViewTouchListener implements View.OnTouchListener, Serializable {
+        public final ListView mListView;
+        private int mTouchPosition;
+
+        public OnListViewTouchListener(final ListView listView) {
+            mListView = listView;
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent ev) {
+            int pos = mListView.pointToPosition((int) ev.getX(), (int) ev.getY());
+            if (pos != mTouchPosition) {
+                onTouchItem(mListView, mTouchPosition = pos);
+            }
+            return false;
+        }
+
+        protected abstract void onTouchItem(ListView listView, int position);
     }
 
     /**
