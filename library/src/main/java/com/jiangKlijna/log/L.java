@@ -17,7 +17,7 @@ import java.util.Calendar;
  */
 public class L {
     private static final SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat hms = new SimpleDateFormat("hh:mm:ss");
+    private static final SimpleDateFormat hms = new SimpleDateFormat("hh-mm-ss");
 
     private L() {
     }
