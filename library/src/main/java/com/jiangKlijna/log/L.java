@@ -96,9 +96,7 @@ public class L {
 
     public static void saveToLog(File logFile, CharSequence str) {
         try {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append('\n').append(getHms()).append("\t:\n").append(str);
-            IO.io(buffer.toString(), new FileWriter(logFile, true));
+            IO.io(new StringBuffer().append('\n').append(getHms()).append("\t:\n").append(str).toString(), new FileWriter(logFile, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -106,15 +104,24 @@ public class L {
 
     public static void saveToLog(File logFile, Throwable ex) {
         try {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append('\n').append(getHms()).append(":\n").append(ex.toString());
-            for (StackTraceElement element : ex.getStackTrace()) {
-                buffer.append("\tat ").append(element.toString()).append("\n");
-            }
-            buffer.append("Caused by: " + ex.getCause());
-            IO.io(buffer.toString(), new FileWriter(logFile, true));
+            IO.io(new StringBuffer().append('\n').append(getHms()).append(":\n").append(getExceptionInfo(ex)).toString(), new FileWriter(logFile, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static CharSequence getExceptionInfo(Throwable e) {
+        if (e == null) {
+            return "";
+        }
+        StringBuffer buf = new StringBuffer();
+        buf.append('\n').append(e);
+        for (StackTraceElement element : e.getStackTrace()) {
+            buf.append("\tat ").append(element.toString()).append('\n');
+        }
+        buf.append("Caused by: " + e.getCause())
+                .append(getExceptionInfo(e.getCause()))
+                .append('\n');
+        return buf;
     }
 }
