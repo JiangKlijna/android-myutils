@@ -2,18 +2,16 @@ package com.jiangKlijna.log;
 
 import android.content.Context;
 import android.os.Build;
+import android.os.Looper;
 import android.os.Process;
+import android.widget.Toast;
 
 import com.jiangKlijna.application.AppUtil;
 import com.jiangKlijna.io.FileUtil;
 import com.jiangKlijna.io.IO;
-import com.jiangKlijna.view.ToastUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 /**
