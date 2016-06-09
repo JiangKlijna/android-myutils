@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.JUtil.customview.ActCustomView;
 import com.jiangKlijna.adapter.XAdapter;
 import com.jiangKlijna.log.CrashHandler;
 
@@ -24,6 +25,11 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (true) {
+            startActivity(new Intent(this, ActCustomView.class));
+            finish();
+            return;
+        }
         setContentView(lv = new ListView(this));
         init();
     }
