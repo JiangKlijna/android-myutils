@@ -1,7 +1,6 @@
 package com.JUtil.customview;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -54,11 +53,11 @@ public class MyListView extends ListView {
         super.onLayout(changed, l, t, r, b);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        l("onDraw", canvas);
-        super.onDraw(canvas);
-    }
+//    @Override
+//    protected void onDraw(Canvas canvas) {
+//        l("onDraw", canvas);
+//        super.onDraw(canvas);
+//    }
 
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
@@ -97,6 +96,13 @@ public class MyListView extends ListView {
 //    }
 
     @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        l("dispatchTouchEvent", ev);
+//        return true;
+        return super.dispatchTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         l("onTouchEvent", ev);
         return super.onTouchEvent(ev);
@@ -105,6 +111,7 @@ public class MyListView extends ListView {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         l("onInterceptTouchEvent", ev);
+//        return true;
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -126,17 +133,17 @@ public class MyListView extends ListView {
 //        super.scrollListBy(y);
 //    }
 
-    @Override
-    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
-        l("onOverScrolled", scrollX, scrollY, clampedX, clampedY);
-        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
-    }
-
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        l("onScrollChanged", l, t, oldl, oldt);
-        super.onScrollChanged(l, t, oldl, oldt);
-    }
+//    @Override
+//    protected void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+//        l("onOverScrolled", scrollX, scrollY, clampedX, clampedY);
+//        super.onOverScrolled(scrollX, scrollY, clampedX, clampedY);
+//    }
+//
+//    @Override
+//    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+//        l("onScrollChanged", l, t, oldl, oldt);
+//        super.onScrollChanged(l, t, oldl, oldt);
+//    }
 
     public static final void l(Object... os) {
         StringBuilder sb = new StringBuilder();
