@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.JUtil.customview.ActCustomView;
+import com.JUtil.mvp.ui.activity.ActUserLogin;
 import com.jiangKlijna.adapter.XAdapter;
 import com.jiangKlijna.log.CrashHandler;
 
@@ -26,7 +27,8 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (true) {
-            startActivity(new Intent(this, ActCustomView.class));
+//            startActivity(new Intent(this, ActCustomView.class));
+            startActivity(new Intent(this, ActUserLogin.class));
             finish();
             return;
         }
