@@ -13,10 +13,14 @@ import com.JUtil.mvp.model.entity.User;
 import com.JUtil.mvp.presenter.UserLoginPresenter;
 import com.JUtil.mvp.ui.IUserLoginView;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by leil7 on 2016/6/11.
  */
 public class ActUserLogin extends Activity implements IUserLoginView {
+
     private EditText mEtUsername, mEtPassword;
     private Button mBtnLogin, mBtnClear;
     private ProgressBar mPbLoading;
@@ -27,7 +31,7 @@ public class ActUserLogin extends Activity implements IUserLoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
-
+        ButterKnife.bind(this);
         initViews();
     }
 
