@@ -13,7 +13,6 @@ import com.JUtil.mvp.model.entity.User;
 import com.JUtil.mvp.presenter.UserLoginPresenter;
 import com.JUtil.mvp.ui.IUserLoginView;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
