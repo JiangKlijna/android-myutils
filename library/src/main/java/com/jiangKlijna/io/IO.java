@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -43,23 +44,39 @@ public class IO {
         io(src, new FileOutputStream(descf));
     }
 
-    public static String io(Reader reader) throws IOException {
+    public static void copyFile_char(final byte[] bytes, final File descf) throws IOException {
+        io(bytes, new FileWriter(descf));
+    }
+
+    public static void copyFile_byte(final byte[] bytes, final File descf) throws IOException {
+        io(bytes, new FileOutputStream(descf));
+    }
+
+    public static String io(final Reader reader) throws IOException {
         StringWriter stringWriter = new StringWriter();
         io(reader, stringWriter);
         return stringWriter.toString();
     }
 
-    public static String io(InputStream reader) throws IOException {
+    public static String io(final InputStream reader) throws IOException {
         StringWriter stringWriter = new StringWriter();
         io(reader, stringWriter);
         return stringWriter.toString();
     }
 
-    public static void io(String string, Writer writer) throws IOException {
+    public static void io(final byte[] bytes, final Writer writer) throws IOException {
+        io(new ByteArrayInputStream(bytes), writer);
+    }
+
+    public static void io(final byte[] bytes, final OutputStream writer) throws IOException {
+        io(new ByteArrayInputStream(bytes), writer);
+    }
+
+    public static void io(final String string, final Writer writer) throws IOException {
         io(new StringReader(string), writer);
     }
 
-    public static void io(String string, OutputStream writer) throws IOException {
+    public static void io(final String string, final OutputStream writer) throws IOException {
         io(new StringReader(string), writer);
     }
 
