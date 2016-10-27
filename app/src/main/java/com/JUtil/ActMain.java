@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.JUtil.customview.ActCustomView;
 import com.JUtil.mvp.ui.activity.ActUserLogin;
 import com.jiangKlijna.adapter.XAdapter;
 import com.jiangKlijna.log.CrashHandler;
