@@ -1,5 +1,6 @@
 package com.jiangKlijna.object;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 /**
@@ -13,9 +14,6 @@ public class ObjUtil {
      * @param desc 目标对象
      */
     public static <T> void copyobj(final T src, final T desc) throws Exception {
-        if (src == desc) {
-            return;
-        }
         copyobj(src, desc, src.getClass(), desc.getClass());
     }
 
@@ -40,7 +38,9 @@ public class ObjUtil {
      * @param <T> 此类必须有空构造
      */
     public static <T> T cloneobj(final T src) throws Exception {
-        T desc = (T) src.getClass().newInstance();
+        Constructor constructor = src.getClass().getDeclaredConstructor();
+        constructor.setAccessible(true);
+        T desc = (T) constructor.newInstance();
         copyobj(src, desc);
         return desc;
     }

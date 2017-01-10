@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.JUtil"
+        applicationId "com.util"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
@@ -23,6 +23,5 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.jakewharton:butterknife:7.0.0'
     compile project(':library')
 }

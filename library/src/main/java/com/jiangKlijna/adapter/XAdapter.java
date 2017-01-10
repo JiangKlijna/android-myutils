@@ -7,13 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * 万能adapter
@@ -21,87 +16,58 @@ import java.util.Set;
  * Author: jiangKlijna
  */
 public abstract class XAdapter<T> extends BaseAdapter {
-    public static final String TAG = XAdapter.class.getName();
-    private static final ArrayList D = new ArrayList();
 
-    public enum MODE {ARRAY, LIST, MAP, SET, JSON}
-
-    private MODE mode;
-    private List<T> list;
-    private T[] array;
-    private Map<?, T> map;
-    private Set<T> set;
-    private JSONArray ja;
-    private Object obj;
     private final Context mContent;
+    private IDataSet<T> dataSet;
+    private Object obj;
 
     public XAdapter(Context con) {
-        this(D, con);
+        this(Collections.EMPTY_LIST, con);
     }
 
-    public XAdapter(List<T> list, Context con) {
-        this.mContent = con;
-        this.list = list;
-        this.mode = MODE.LIST;
+    public XAdapter(T[] array, Context context) {
+        this(new ArrayDataSet(array), context);
     }
 
-    public XAdapter(T[] array, Context con) {
-        this.mContent = con;
-        this.array = array;
-        this.mode = MODE.ARRAY;
+    public XAdapter(Collection<T> collection, Context context) {
+        this(new CollectionDataSet(collection), context);
     }
 
-    public XAdapter(Map<?, T> map, Context con) {
-        this.mContent = con;
-        this.map = map;
-        this.mode = MODE.MAP;
+    public XAdapter(IDataSet dataSet, Context context) {
+        this.dataSet = dataSet;
+        mContent = context;
     }
 
-    public XAdapter(Set<T> set, Context con) {
-        this.mContent = con;
-        this.set = set;
-        this.mode = MODE.SET;
+    public void setData(Collection<T> collection) {
+        if (dataSet instanceof CollectionDataSet) {
+            CollectionDataSet cds = (CollectionDataSet) dataSet;
+            if (collection != cds.collection) {
+                cds.collection = collection;
+            }
+            cds.onNotifyDataSetChanged();
+        } else {
+            dataSet = new CollectionDataSet(collection);
+        }
+        super.notifyDataSetChanged();
     }
 
-    public XAdapter(JSONArray ja, Context con) {
-        this.mContent = con;
-        this.ja = ja;
-        this.mode = MODE.JSON;
+    public void setData(T[] array) {
+        if (dataSet instanceof ArrayDataSet) {
+            ArrayDataSet ads = (ArrayDataSet) dataSet;
+            if (array != ads.array) {
+                ads.array = array;
+            }
+            ads.onNotifyDataSetChanged();
+        } else {
+            dataSet = new ArrayDataSet(array);
+        }
+        super.notifyDataSetChanged();
     }
 
-    public void setMode(MODE mode) {
-        this.mode = mode;
-        notifyDataSetChanged();
-    }
-
-    public void setList(List<T> list) {
-        this.list = list;
-        this.mode = MODE.LIST;
-        notifyDataSetChanged();
-    }
-
-    public void setArray(T[] array) {
-        this.array = array;
-        this.mode = MODE.ARRAY;
-        notifyDataSetChanged();
-    }
-
-    public void setMap(Map<?, T> map) {
-        this.map = map;
-        this.mode = MODE.MAP;
-        notifyDataSetChanged();
-    }
-
-    public void setSet(Set<T> set) {
-        this.set = set;
-        this.mode = MODE.SET;
-        notifyDataSetChanged();
-    }
-
-    public void setJSON(JSONArray ja) {
-        this.ja = ja;
-        this.mode = MODE.JSON;
-        notifyDataSetChanged();
+    @Override
+    public void notifyDataSetChanged() {
+        dataSet.onNotifyDataSetChanged();
+        super.notifyDataSetChanged();
     }
 
     public void setObject(Object obj) {
@@ -112,24 +78,20 @@ public abstract class XAdapter<T> extends BaseAdapter {
         return this.obj;
     }
 
-    protected List<T> getList() {
-        return this.list;
+    public void clear() {
+        setData(Collections.EMPTY_LIST);
+    }
+
+    protected Collection<T> getCollection() {
+        if (dataSet instanceof CollectionDataSet)
+            return ((CollectionDataSet) dataSet).collection;
+        return null;
     }
 
     protected T[] getArray() {
-        return this.array;
-    }
-
-    protected Map<?, T> getMap() {
-        return this.map;
-    }
-
-    protected Set<T> getSet() {
-        return this.set;
-    }
-
-    protected JSONArray getJSON() {
-        return this.ja;
+        if (dataSet instanceof ArrayDataSet)
+            return ((ArrayDataSet<T>) dataSet).array;
+        return null;
     }
 
     protected Context getContext() {
@@ -138,38 +100,12 @@ public abstract class XAdapter<T> extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (mode == MODE.LIST) {
-            return list.size();
-        } else if (mode == MODE.ARRAY) {
-            return array.length;
-        } else if (mode == MODE.MAP) {
-            return map.size();
-        } else if (mode == MODE.SET) {
-            return set.size();
-        } else if (mode == MODE.JSON) {
-            return ja.length();
-        }
-        return 0;
+        return dataSet.getCount();
     }
 
-    @Deprecated
     @Override
     public T getItem(int position) {
-        if (mode == MODE.LIST) {
-            return this.list.get(position);
-        } else if (mode == MODE.ARRAY) {
-            return this.array[position];
-        } else if (mode == MODE.MAP) {
-            return (T) this.map.values().toArray()[position];
-        } else if (mode == MODE.SET) {
-            return (T) this.set.toArray()[position];
-        } else if (mode == MODE.JSON) {
-            try {
-                return (T) this.ja.get(position);
-            } catch (JSONException e) {
-            }
-        }
-        return null;
+        return dataSet.getItem(position);
     }
 
     @Override
@@ -178,11 +114,7 @@ public abstract class XAdapter<T> extends BaseAdapter {
     }
 
     @Override
-    public final View getView(int position, View convertView, ViewGroup parent) {
-        return initData(position, convertView, parent);
-    }
-
-    protected abstract View initData(int position, View convertView, ViewGroup parent);
+    public abstract View getView(int position, View convertView, ViewGroup parent);
 
     public static ViewHolder getHolder(Context context, View convertView, Class<? extends View> clasz, int position) {
         if (convertView == null) {
@@ -218,8 +150,8 @@ public abstract class XAdapter<T> extends BaseAdapter {
             mConvertView.setTag(this);
         }
 
-        public final View getConvertView() {
-            return mConvertView;
+        public final <T extends View> T getConvertView() {
+            return (T) mConvertView;
         }
 
         public final int getPosition() {
@@ -233,6 +165,63 @@ public abstract class XAdapter<T> extends BaseAdapter {
                 mViews.put(viewId, view);
             }
             return (T) view;
+        }
+    }
+
+    public interface IDataSet<T> {
+        int getCount();
+
+        T getItem(int position);
+
+        void onNotifyDataSetChanged();
+    }
+
+    private static final class CollectionDataSet<T> implements IDataSet {
+
+        private Collection<T> collection;
+        private Object[] datas;
+
+        private CollectionDataSet(Collection<T> collection) {
+            this.collection = collection;
+            onNotifyDataSetChanged();
+        }
+
+        @Override
+        public void onNotifyDataSetChanged() {
+            datas = collection.toArray();
+        }
+
+        @Override
+        public int getCount() {
+            return datas.length;
+        }
+
+        @Override
+        public T getItem(int position) {
+            return (T) datas[position];
+        }
+    }
+
+    private static final class ArrayDataSet<T> implements IDataSet {
+
+        private T[] array;
+
+        private ArrayDataSet(T[] array) {
+            this.array = array;
+        }
+
+        @Override
+        public void onNotifyDataSetChanged() {
+        }
+
+        @Override
+        public int getCount() {
+            return array.length;
+        }
+
+        @Override
+        public T getItem(int position) {
+            return array[position];
         }
     }
 }

@@ -90,7 +90,6 @@ public class AppUtil {
         }
         try {
             pi = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_CONFIGURATIONS);
-            return pi;
         } catch (Exception e) {
         }
         return pi;
@@ -218,4 +217,5 @@ public class AppUtil {
         InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
 }

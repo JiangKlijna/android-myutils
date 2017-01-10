@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.JUtil">
+    package="com.util">
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActMain"
+            android:name="com.util.ActMain"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:persistent="true"
@@ -24,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".customview.ActCustomView" />
-        <activity android:name=".mvp.ui.activity.ActUserLogin" />
     </application>
 
 </manifest>

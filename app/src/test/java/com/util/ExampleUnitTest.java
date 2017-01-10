@@ -1,4 +1,4 @@
-package com.JUtil;
+package com.util;
 
 import org.junit.Test;
 

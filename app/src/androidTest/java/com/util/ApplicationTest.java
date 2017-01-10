@@ -1,4 +1,4 @@
-package com.JUtil;
+package com.util;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
