@@ -10,7 +10,7 @@ import java.io.File;
  * Author: com.jiangKlijna
  */
 public class Dir {
-    public static final File SDCARD_APP_DIR = getSdcardFileDir("com/jiangKlijna");
+    public static final File SDCARD_APP_DIR = getSdcardFileDir("jiangKlijna");
 
     private Dir() {
     }
@@ -27,10 +27,12 @@ public class Dir {
      * @return /sdcard/[path]
      */
     public static File getSdcardFileDir(String path) {
-        File dir = new File(Environment.getExternalStorageDirectory(), path);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
+        return getDir(Environment.getExternalStorageDirectory(), path);
+    }
+
+    public static File getDir(File updir, String path) {
+        File dir = new File(updir, path);
+        if (!dir.exists()) dir.mkdir();
         return dir;
     }
 
@@ -48,9 +50,7 @@ public class Dir {
      */
     public static File getExternalFileDir(Context context, String path) {
         File dir = new File(context.getExternalFilesDir(""), path);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
+        if (!dir.exists()) dir.mkdir();
         return dir;
     }
 
@@ -62,15 +62,14 @@ public class Dir {
         return context.getExternalCacheDir();
     }
 
+
     /**
      * @param path 自定义路径
      * @return /sdcard/Android/data/[package_name]/cache/[path]
      */
     public static File getExternalCacheDir(Context context, String path) {
         File dir = new File(context.getExternalCacheDir(), path);
-        if (!dir.exists()) {
-            dir.mkdir();
-        }
+        if (!dir.exists()) dir.mkdir();
         return dir;
     }
 

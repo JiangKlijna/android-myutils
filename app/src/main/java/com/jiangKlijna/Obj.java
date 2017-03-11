@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
  * object Util
  * Author: com.jiangKlijna
  */
-public class ObjUtil {
+public class Obj {
 
     /**
      * @param src  源对象

@@ -182,9 +182,7 @@ public class Beans implements Serializable {
         }
 
         public int compareTo(Class iClass, Class tClass) {
-            if (equals(iClass, tClass)) {
-                return 0;
-            }
+            if (equals(iClass, tClass)) return 0;
             int i = this.iClass.getName().compareTo(iClass.getName());
             return i != 0 ? i : i + this.tClass.getName().compareTo(tClass.getName());
         }
@@ -299,7 +297,7 @@ public class Beans implements Serializable {
         @Override
         public T onGetBean() {
             try {
-                return ObjUtil.cloneobj(product);
+                return Obj.cloneobj(product);
             } catch (Exception e) {
                 e.printStackTrace();
                 throw new RuntimeException(e);

@@ -93,7 +93,7 @@ public class L {
 
     public static void saveToLog(File logFile, CharSequence str) {
         try {
-            IO.io(new StringBuffer().append('\n').append(getHms()).append("\t:\n").append(str).toString(), new FileWriter(logFile, true));
+            IO.str(new StringBuffer().append('\n').append(getHms()).append("\t:\n").append(str).toString(), new FileWriter(logFile, true));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,7 +101,7 @@ public class L {
 
     public static void saveToLog(File logFile, Throwable ex) {
         try {
-            IO.io(new StringBuffer().append('\n').append(getHms()).append(":\n").append(getExceptionInfo(ex)).toString(), new FileWriter(logFile, true));
+            IO.str(new StringBuffer().append('\n').append(getHms()).append(":\n").append(getExceptionInfo(ex)).toString(), new FileWriter(logFile, true));
         } catch (IOException e) {
             e.printStackTrace();
         }

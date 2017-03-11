@@ -18,7 +18,7 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
 
     private ListView lv;
     private XAdapter<String> adapter;
-    private static final String[] title = new String[]{"XAdapter", "ObjectKey", "CrashHandler", "", "android-myutil"};
+    private static final String[] title = new String[]{"XAdapter", "ObjectKey", "CrashHandler", "dlksajlkjdl", "android-myutil"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +31,7 @@ public class ActMain extends Activity implements AdapterView.OnItemClickListener
         adapter = new XAdapter<String>(this) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                ViewHolder holder = XAdapter.getHolder(getContext(), convertView, TextView.class, position);
+                ViewHolder holder = XAdapter.getHolder(getContext(), convertView, TextView.class);
 //                XAdapter.ViewHolder holder = XAdapter.getHolder(getContext(), convertView, parent, R.layout.text_item, position);
                 TextView tv = holder.getConvertView();
                 tv.setText(getItem(position));

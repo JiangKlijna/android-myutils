@@ -7,6 +7,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 
 /**
@@ -17,7 +18,7 @@ public class Event {
     private Event() {
     }
 
-    public static class OnTouchListener implements View.OnTouchListener, Serializable {
+    public static class OnTouchListener implements View.OnTouchListener {
         private float mPosX;
         private float mPosY;
         private float mCurrentPosX;
@@ -70,7 +71,7 @@ public class Event {
         }
     }
 
-    public static class OnScrollListener implements AbsListView.OnScrollListener, Serializable {
+    public static class OnScrollListener implements AbsListView.OnScrollListener {
 
         @Override
         public final void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -107,7 +108,7 @@ public class Event {
     /**
      * listview使用的OnTouchListener
      */
-    public static abstract class OnListViewTouchListener implements View.OnTouchListener, Serializable {
+    public static abstract class OnListViewTouchListener implements View.OnTouchListener {
         public final ListView mListView;
         private int mTouchPosition;
 
@@ -130,11 +131,11 @@ public class Event {
     /**
      * 双击事件
      */
-    public static abstract class OnDoubleClickListener implements View.OnClickListener, Serializable {
+    public static abstract class OnDoubleClickListener implements View.OnClickListener {
         private boolean kg;
 
         @Override
-        public synchronized final void onClick(View view) {
+        public final void onClick(View view) {
             if (kg) {
                 onDoubleClick(view);
             } else {
@@ -157,27 +158,25 @@ public class Event {
     /**
      * 添加点击事件s
      */
-    public static class OnClickListeners implements View.OnClickListener, Serializable {
+    public static class OnClickListeners implements View.OnClickListener, Iterable {
         private final LinkedHashSet<View.OnClickListener> clicks = new LinkedHashSet<View.OnClickListener>();
 
         @Override
-        public synchronized final void onClick(View view) {
-            for (View.OnClickListener click : clicks) {
-                click.onClick(view);
-            }
+        public final void onClick(View view) {
+            for (View.OnClickListener click : clicks) click.onClick(view);
         }
 
-        public synchronized OnClickListeners addClick(View.OnClickListener click) {
+        public OnClickListeners addClick(View.OnClickListener click) {
             clicks.add(click);
             return this;
         }
 
-        public synchronized OnClickListeners removeClick(View.OnClickListener click) {
+        public OnClickListeners removeClick(View.OnClickListener click) {
             clicks.remove(click);
             return this;
         }
 
-        public synchronized OnClickListeners clear() {
+        public OnClickListeners clear() {
             clicks.clear();
             return this;
         }
@@ -186,10 +185,14 @@ public class Event {
             return clicks.size();
         }
 
-        public synchronized OnClickListeners addAll(OnClickListeners clickListeners) {
+        public OnClickListeners addAll(OnClickListeners clickListeners) {
             clicks.addAll(clickListeners.clicks);
             return this;
         }
 
+        @Override
+        public Iterator iterator() {
+            return clicks.iterator();
+        }
     }
 }
