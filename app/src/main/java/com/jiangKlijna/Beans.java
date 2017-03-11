@@ -1,4 +1,4 @@
-package com.jiangKlijna.object;
+package com.jiangKlijna;
 
 import java.io.Serializable;
 import java.lang.reflect.Constructor;

@@ -1,13 +1,8 @@
-package com.jiangKlijna.view;
+package com.jiangKlijna;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Point;
-import android.graphics.RectF;
+import android.graphics.*;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -15,36 +10,17 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.jiangKlijna.io.FileUtil;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
  * img/bitmap 工具
- * Author: jiangKlijna
+ * Author: com.jiangKlijna
  */
 public class ImgUtil {
     private ImgUtil() {
     }
-
-    /**
-     * dp to px
-     */
-    public static int dp_px(Context context, float dpValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
-    }
-
-    /**
-     * px to dp
-     */
-    public static int px_dp(Context context, float pxValue) {
-        float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
-    }
-
 
     //bitmap  to  uri
     public static Uri Bitmap2Uri(Context con, Bitmap bitmap) {
@@ -129,7 +105,7 @@ public class ImgUtil {
     }
 
     public static File getNewImgFile() {
-        File f = new File(FileUtil.getSdcardFileDir("jiangKlijna"), System.currentTimeMillis() + ".png");
+        File f = new File(Dir.getSdcardFileDir("com/jiangKlijna"), System.currentTimeMillis() + ".png");
         try {
             if (!f.exists())
                 f.createNewFile();

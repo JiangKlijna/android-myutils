@@ -1,4 +1,4 @@
-package com.jiangKlijna.io;
+package com.jiangKlijna;
 
 import android.content.Context;
 import android.os.Environment;
@@ -7,12 +7,12 @@ import java.io.File;
 
 /**
  * file 工具
- * Author: jiangKlijna
+ * Author: com.jiangKlijna
  */
-public class FileUtil {
-    public static final File SDCARD_APP_DIR = getSdcardFileDir("jiangKlijna");
+public class Dir {
+    public static final File SDCARD_APP_DIR = getSdcardFileDir("com/jiangKlijna");
 
-    private FileUtil() {
+    private Dir() {
     }
 
     /**
@@ -72,14 +72,6 @@ public class FileUtil {
             dir.mkdir();
         }
         return dir;
-    }
-
-
-    /**
-     * @return 公共下载文件夹
-     */
-    public static String getPublicDownloadDir() {
-        return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
     }
 
 }

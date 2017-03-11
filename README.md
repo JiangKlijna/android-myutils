@@ -10,22 +10,22 @@
 
 包名|工具|描述
 ----|----|----
-com.jiangKlijna.adapter|XAdapter|万能adapter,viewholder以静态内部类的形式存在,通过XAdapter的静态方法获得实例
-com.jiangKlijna.application|ActManager|activity的stack式管理
+com.com.jiangKlijna.adapter|XAdapter|万能adapter,viewholder以静态内部类的形式存在,通过XAdapter的静态方法获得实例
+com.com.jiangKlijna.application|ActManager|activity的stack式管理
 ......|AppUtil|应用工具类
 ......|IntentUtil|Intent工具类
-com.jiangKlijna.async|CallBack|继承自Handler的回调
-com.jiangKlijna.io|IO|IO工具类
+com.com.jiangKlijna.async|CallBack|继承自Handler的回调
+com.com.jiangKlijna.io|IO|IO工具类
 ......|FileUtil|android下重要目录获取
-com.jiangKlijna.log|L|日志的打印/保存到文件
+com.com.jiangKlijna.log|L|日志的打印/保存到文件
 ......|CrashHandler|android捕获全局异常
-com.jiangKlijna.math|MathUtil|math工具类
+com.com.jiangKlijna.math|MathUtil|math工具类
 ......|Blowfish|加密算法
 ......|Random|随机数
-com.jiangKlijna.object|Beans|对象工厂
+com.com.jiangKlijna.object|Beans|对象工厂
 ......|NullUtil|判断Null工具类
 ......|ObjUtil|Object工具类,目前有拷贝对象,复制对象
-com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存在
+com.com.jiangKlijna.view|Event|view的事件,事件类以静态内部类的形式存在
 ......|ImgUtil|Bitmap工具类
 ......|ToastUtil|toast工具类
 

@@ -1,4 +1,4 @@
-package com.jiangKlijna.adapter;
+package com.jiangKlijna;
 
 import android.content.Context;
 import android.util.SparseArray;
@@ -13,7 +13,7 @@ import java.util.Collections;
 /**
  * 万能adapter
  * ViewHolder以静态内部类的形式存在(私有构造),通过getHoder方法来获取ViewHolder对象
- * Author: jiangKlijna
+ * Author: com.jiangKlijna
  */
 public abstract class XAdapter<T> extends BaseAdapter {
 
