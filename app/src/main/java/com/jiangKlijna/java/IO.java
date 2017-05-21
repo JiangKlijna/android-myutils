@@ -1,4 +1,4 @@
-package com.jiangKlijna;
+package com.jiangKlijna.java;
 
 import java.io.*;
 

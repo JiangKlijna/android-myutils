@@ -1,5 +1,4 @@
-package com.jiangKlijna;
-
+package com.jiangKlijna.java;
 
 import android.content.Context;
 import android.util.SparseArray;

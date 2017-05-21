@@ -1,4 +1,4 @@
-package com.jiangKlijna;
+package com.jiangKlijna.java;
 
 import android.os.SystemClock;
 import android.view.MotionEvent;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
-import java.io.Serializable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 
