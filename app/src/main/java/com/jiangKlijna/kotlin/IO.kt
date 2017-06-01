@@ -51,6 +51,24 @@ object IO {
         return byt(FileInputStream(descf))
     }
 
+    //序列化对象
+    @Throws(IOException::class)
+    fun obj(obj: Any): ByteArray {
+        val bo = ByteArrayOutputStream()
+        val oo = ObjectOutputStream(bo)
+        oo.writeObject(obj)
+        val bytes = bo.toByteArray()
+        bo.close()
+        oo.close()
+        return bytes
+    }
+
+    @Throws(Exception::class)
+    fun <T> obj(bytes: ByteArray): T {
+        val sin = ObjectInputStream(ByteArrayInputStream(bytes))
+        return sin.readObject() as T
+    }
+    
     //字符串相关
     @Throws(IOException::class)
     fun str(string: String, writer: Writer) {

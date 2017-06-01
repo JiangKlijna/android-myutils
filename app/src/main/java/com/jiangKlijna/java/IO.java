@@ -46,6 +46,22 @@ public class IO {
         return byt(new FileInputStream(descf));
     }
 
+    //序列化对象
+    public static final byte[] obj(final Object obj) throws IOException {
+        ByteArrayOutputStream bo = new ByteArrayOutputStream();
+        ObjectOutputStream oo = new ObjectOutputStream(bo);
+        oo.writeObject(obj);
+        byte[] bytes = bo.toByteArray();
+        bo.close();
+        oo.close();
+        return bytes;
+    }
+
+    public static final <T> T obj(final byte[] bytes) throws Exception {
+        ObjectInputStream sin = new ObjectInputStream(new ByteArrayInputStream(bytes));
+        return (T) sin.readObject();
+    }
+
     //字符串相关
     public static final void str(final String string, final Writer writer) throws IOException {
         chars(new StringReader(string), writer);
